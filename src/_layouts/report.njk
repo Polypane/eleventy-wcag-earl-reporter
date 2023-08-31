@@ -85,13 +85,12 @@ layout: base
     {% for sample in sample %}
     <li id="{{ sample.id }}">
       <div>
-        <img src="{% sample_image sample.id, page.fileSlug %}" alt="" />
-      </div>
-      <div>
         <strong>{{ sample.title }}</strong>
         <a href="{{ sample.url }}">{{ sample.url }}</a>
-        <p>{{ sample.description }}</p></li>
+        {% if sample.description %}<p>{{ sample.description }}</p></li>{% endif %}
       </div>
+    {% else %}
+    <li><em>{{ translations.no_sample[language] }}</em></li>
     {% endfor %}
   </ul>
 </section>
@@ -123,20 +122,29 @@ layout: base
               </a>
             </dd>
           </div>
+          
+          {% if issue.data.difficulty %}
           <div>
             <dt>{{ translations.difficulty[language] }}: </dt>
             <dd>{{ issue.data.difficulty }}</a></dd>
           </div>
+          {% endif %}
+          {% if issue.data.severity %}
           <div>
             <dt>{{ translations.severity[language] }}: </dt>
             <dd>{{ issue.data.severity }}</dd>
           </div>
+          {% endif %}
           <div>
             <dt>{{ translations.sample[language] }}: </dt>
-            {% if issue.data.sample == "all" %}
-            <dd>{{ translations.all_pages[language] }}</dd>
+            {% if issue.data.onallpages %}
+              <dd>{{ translations.all_pages[language] }} ({{ issue.data.total }})</dd>
             {% else %}
-            <dd><a href="#{{ issue.data.sample }}">{{ issue.data.sample }}</a></dd>
+              {% for sample in issue.data.sample %}
+                <dd><a href="#{{ sample.id }}">{{ sample.url }}</a></dd>
+              {% endfor %}
+              <dt>{{ translations.totalsample[language] }}: </dt>
+              <dd>{{ issue.data.total }}</dd>
             {% endif %}
           </div>
         </dl>
@@ -164,20 +172,28 @@ layout: base
 
       <div class="issue-meta">
         <dl>
+          {% if issue.data.difficulty %}
           <div>
             <dt>{{ translations.difficulty[language] }}: </dt>
             <dd>{{ issue.data.difficulty }}</a></dd>
           </div>
+          {% endif %}
+          {% if issue.data.severity %}
           <div>
             <dt>{{ translations.severity[language] }}: </dt>
             <dd>{{ issue.data.severity }}</dd>
           </div>
+          {% endif %}
           <div>
             <dt>{{ translations.sample[language] }}: </dt>
-            {% if issue.data.sample == "all" %}
-            <dd>{{ translations.all_pages[language] }}</dd>
+            {% if issue.data.onallpages %}
+              <dd>{{ translations.all_pages[language] }} ({{ issue.data.total }})</dd>
             {% else %}
-            <dd><a href="#{{ issue.data.sample }}">{{ issue.data.sample }}</a></dd>
+              {% for sample in issue.data.sample %}
+                <dd><a href="#{{ sample.id }}">{{ sample.url }}</a></dd>
+              {% endfor %}
+              <dt>{{ translations.totalsample[language] }}: </dt>
+              <dd>{{ issue.data.total }}</dd>
             {% endif %}
           </div>
         </dl>
