@@ -31,6 +31,7 @@ allsamples:
 
 Multiple headings with the same accessible name found
 
-#### Solution
 
-[@TODO]
+
+
+

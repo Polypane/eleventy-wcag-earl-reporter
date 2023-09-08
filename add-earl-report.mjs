@@ -133,9 +133,20 @@ ${allSamples.join("\n")}
 
 ${issue.test.description}
 
-#### Solution
+${
+  issue.result.info
+    ? `#### Additional Information
+${issue.result.info}`
+    : ""
+}
 
-[@TODO]
+${
+  issue.result.solution
+    ? `#### Solution
+${issue.result.solution}`
+    : ""
+}
+
 `;
 
     fs.writeFileSync(`${targetFolder}/${slugify(issue.test.title.toLowerCase())}.md`, template);

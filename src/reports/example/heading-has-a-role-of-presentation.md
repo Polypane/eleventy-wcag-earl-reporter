@@ -33,6 +33,7 @@ allsamples:
 
 A heading has a role of presentation, taking it out of the heading structure.
 
-#### Solution
 
-[@TODO]
+
+
+

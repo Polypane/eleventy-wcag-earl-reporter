@@ -33,6 +33,7 @@ allsamples:
 
 Multiple landmark elements with the same role but without unique titles make it hard for users of assistive technologies to tell them apart.
 
-#### Solution
 
-[@TODO]
+
+
+
