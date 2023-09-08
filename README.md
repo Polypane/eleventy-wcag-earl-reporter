@@ -147,3 +147,7 @@ You'll need to add the id of the sample (e.g. `sample-1`) and the folder name of
 This will then output either `images/sample-1.png` (if it exists) or the URL to a default image.
 
 The default can be changed by updating `.src/reports/example/images/default-screenshot.png`.
+
+## Validating your EARL file
+
+Use the provided [schema.json](./schema.json) file to validate your EARL file.

@@ -1,0 +1,261 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "object",
+      "properties": {
+        "@vocab": {
+          "type": "string",
+          "const": "http://www.w3.org/ns/earl#"
+        },
+        "earl": {
+          "type": "string",
+          "const": "http://www.w3.org/ns/earl#"
+        },
+        "WCAG20": {
+          "type": "string",
+          "const": "http://www.w3.org/TR/WCAG20/#"
+        },
+        "WCAG21": {
+          "type": "string",
+          "const": "http://www.w3.org/TR/WCAG21/#"
+        },
+        "dct": {
+          "type": "string",
+          "const": "http://purl.org/dc/terms/"
+        },
+        "sch": {
+          "type": "string",
+          "const": "https://schema.org/"
+        },
+        "doap": {
+          "type": "string",
+          "const": "http://usefulinc.com/ns/doap#"
+        },
+        "foaf": {
+          "type": "string",
+          "const": "http://xmlns.com/foaf/0.1/"
+        },
+        "ptr": {
+          "type": "string",
+          "const": "http://www.w3.org/2009/pointers#"
+        },
+        "assertions": {
+          "type": "object",
+          "properties": {
+            "@reverse": {
+              "type": "string",
+              "const": "subject"
+            }
+          },
+          "required": ["@reverse"]
+        },
+        "pointer": {
+          "type": "object",
+          "properties": {
+            "@type": {
+              "type": "string",
+              "const": "ptr:CSSSelectorPointer"
+            }
+          },
+          "required": ["@type"]
+        }
+      },
+      "required": ["@vocab", "earl", "WCAG20", "WCAG21", "dct", "sch", "doap", "foaf", "ptr", "assertions", "pointer"]
+    },
+    "assertor": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["earl:MainAssertor", "earl:Assertor", "earl:Software", "doap:Project"]
+          }
+        },
+        "@id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "doap:name": {
+          "type": "string"
+        },
+        "doap:description": {
+          "type": "string"
+        },
+        "doap:homepage": {
+          "type": "string",
+          "format": "uri"
+        },
+        "doap:release": {
+          "type": "object",
+          "properties": {
+            "doap:revision": {
+              "type": "string"
+            }
+          },
+          "required": ["doap:revision"]
+        },
+        "doap:vendor": {
+          "type": "object",
+          "properties": {
+            "@id": {
+              "type": "string",
+              "format": "uri"
+            },
+            "@type": {
+              "type": "string",
+              "const": "foaf:Organization"
+            },
+            "foaf:name": {
+              "type": "string"
+            }
+          },
+          "required": ["@id", "@type", "foaf:name"]
+        }
+      },
+      "required": ["@type", "@id", "doap:name", "doap:description", "doap:homepage", "doap:release", "doap:vendor"]
+    },
+    "project": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["earl:TestSubject", "sch:WebSite"]
+          }
+        },
+        "@id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "dct:hasPart": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "dct:title": {
+          "type": "string"
+        },
+        "dct:description": {
+          "type": "string"
+        },
+        "dct:date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "commissioner": {
+          "type": "string"
+        }
+      },
+      "required": ["@type", "@id", "dct:hasPart", "dct:title", "dct:description", "dct:date", "commissioner"]
+    },
+    "assertions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@type": {
+            "type": "string",
+            "const": "earl:Assertion"
+          },
+          "assertedBy": {
+            "type": "object",
+            "properties": {
+              "@id": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": ["@id"]
+          },
+          "test": {
+            "type": "object",
+            "properties": {
+              "@type": {
+                "type": "string",
+                "const": "earl:TestCriterion"
+              },
+              "title": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "isPartOf": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["title"]
+                }
+              }
+            },
+            "required": ["@type", "title", "description"]
+          },
+          "result": {
+            "type": "object",
+            "properties": {
+              "@type": {
+                "type": "string",
+                "const": "earl:TestResult"
+              },
+              "date": {
+                "type": "string",
+              },
+              "outcome": {
+                "type": "string"
+              },
+              "pointer": {
+                "type": "string"
+              },
+              "info": {
+                "type": "string"
+              },
+              "solution": {
+                "type": "string"
+              }
+            },
+            "required": ["@type", "outcome"]
+          },
+          "mode": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "@type": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": ["earl:TestSubject", "sch:WebPage"]
+                  }
+                },
+                "dct:title": {
+                  "type": "string"
+                },
+                "source": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              },
+              "required": ["@type", "dct:title", "source"]
+            }
+          }
+        },
+        "required": ["@type", "assertedBy", "test", "result", "mode"]
+      }
+    }
+  },
+  "required": ["@context", "assertor", "project", "assertions"]
+}
