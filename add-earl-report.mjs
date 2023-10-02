@@ -110,13 +110,17 @@ function createIssueFiles(earl, targetFolder) {
   const issues = earl.assertions.filter((assertion) => assertion.result.outcome === "earl:failed");
 
   issues.forEach((issue) => {
-    const allSamples = issue.subject.map(
-      (x) => `- url: "${x.source}"
-  id: ${urlToID(x.source)}`
-    );
+    let systemAllPages = false;
+    const allSamples = issue.subject.map((x) => {
+      if (x["dct:title"].startsWith("All pages on")) {
+        systemAllPages = true;
+      }
+      return `- url: "${x["dct:title"].startsWith("All pages on") ? x["dct:title"] : x.source}"
+  id: ${urlToID(x.source)}`;
+    });
 
-    const onAllPages = allSamples.length === totalpages;
-    const total = Math.min(allSamples.length);
+    const onAllPages = allSamples.length === totalpages || systemAllPages;
+    const total = systemAllPages ? totalpages : Math.min(allSamples.length);
 
     const template = `---
 sc: ${issue.test.isPartOf ? issue.test.isPartOf.map((x) => x.title.split(":")[1].trim()).join(", ") : "none"}
