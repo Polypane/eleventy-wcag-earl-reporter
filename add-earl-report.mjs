@@ -131,7 +131,7 @@ ${allSamples.join("\n")}
 
 #### Problem
 
-${issue.test.description}
+${escapeHTML(issue.test.description)}
 
 ${
   issue.result.info
@@ -210,3 +210,16 @@ ${issue.result.solution}`
     }
   }
 })();
+
+const escapeHTML = (str) =>
+  str.replace(
+    /[&<>'"]/g,
+    (tag) =>
+      ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "'": "&#39;",
+        '"': "&quot;",
+      }[tag])
+  );
