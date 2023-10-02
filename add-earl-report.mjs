@@ -112,10 +112,10 @@ function createIssueFiles(earl, targetFolder) {
   issues.forEach((issue) => {
     let systemAllPages = false;
     const allSamples = issue.subject.map((x) => {
-      if (x["dct:title"].startsWith("All pages on")) {
+      if (x["@type"].includes("sch:WebSite")) {
         systemAllPages = true;
       }
-      return `- url: "${x["dct:title"].startsWith("All pages on") ? x["dct:title"] : x.source}"
+      return `- url: "${x["@type"].includes("sch:WebSite") ? x["dct:title"] : x.source}"
   id: ${urlToID(x.source)}`;
     });
 

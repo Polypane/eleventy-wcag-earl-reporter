@@ -238,7 +238,7 @@
                   "type": "array",
                   "items": {
                     "type": "string",
-                    "enum": ["earl:TestSubject", "sch:WebPage"]
+                    "enum": ["earl:TestSubject", "sch:WebPage", "sch:WebSite"]
                   }
                 },
                 "dct:title": {
